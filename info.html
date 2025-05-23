@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>BAYS STOREE - Information</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #0066cc;
+            --dark-bg: #000000;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --darker-card-bg: rgba(10, 10, 10, 0.97);
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-color: #66b3ff;
+            --border-color: rgba(77, 166, 255, 0.2);
+            --hover-color: #1a8cff;
+            --glow-color: rgba(77, 166, 255, 0.5);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, 
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(77, 166, 255, 0.1) 50%,
+                rgba(10, 10, 10, 0.97) 100%
+            );
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color) !important;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: neonPulse 2s infinite;
+        }
+
+        .section-title {
+            color: #ffffff;
+            text-shadow: 0 0 20px var(--glow-color);
+            font-weight: 800;
+            letter-spacing: 4px;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: neonPulse 3s infinite;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .info-section {
+            margin-bottom: 4rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: borderGlow 4s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+
+        .info-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color);
+            background: rgba(77, 166, 255, 0.1);
+        }
+
+        .info-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-text h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .info-text p {
+            margin: 0.5rem 0 0;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color);
+            background: rgba(77, 166, 255, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-support {
+            background: var(--primary-color);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        .btn-support:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--glow-color);
+            color: #ffffff;
+        }
+
+        .btn-support i {
+            margin-right: 0.8rem;
+        }
+
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+            50% { text-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color), 0 0 35px var(--glow-color); }
+            100% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+            50% { border-color: var(--primary-color); box-shadow: 0 0 30px var(--glow-color); }
+            100% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+        }
+
+        .info-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            background: rgba(77, 166, 255, 0.1);
+            border: 1px solid var(--border-color);
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .info-button:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .info-button i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .info-button:hover i {
+            color: #ffffff;
+        }
+
+        .btn-edit-stats {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            padding: 5px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit-stats:hover {
+            color: var(--hover-color);
+            transform: scale(1.1);
+        }
+
+        .stat-value.editable {
+            cursor: pointer;
+            border-bottom: 2px dashed var(--primary-color);
+        }
+
+        .stat-value.editable:hover {
+            color: var(--primary-color);
+        }
+
+        .stat-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            padding: 5px 10px;
+            width: 150px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .stat-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-page {
+            padding: 2rem 0;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(77, 166, 255, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .info-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .info-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-content {
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .stat-label {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(77, 166, 255, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            width: 40px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+
+        .contact-label {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-value {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-color);
+        }
+
+        .support-message {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            padding: 1rem;
+            border-left: 4px solid var(--primary-color);
+            background: rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">BAYS STOREE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Starter Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools.html">Tools List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="info-page">
+        <div class="container">
+            <!-- Quick Stats -->
+            <div class="info-card">
+                <h2 class="info-title">Quick Stats</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTransactions">0</div>
+                        <div class="stat-label">Total Transactions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="completedOrders">0</div>
+                        <div class="stat-label">Completed Orders</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="happyCustomers">0</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Store Information -->
+            <div class="info-card">
+                <h2 class="info-title">Store Information</h2>
+                <div class="info-content">
+                    <h3 id="storeName" style="color: var(--primary-color); font-family: 'Orbitron', sans-serif; margin-bottom: 1rem;"></h3>
+                    <p id="storeDescription" style="margin-bottom: 1rem;"></p>
+                    <p><strong>Operating Hours:</strong> <span id="operatingHours"></span></p>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="info-card">
+                <h2 class="info-title">Contact Information</h2>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <i class="fab fa-whatsapp contact-icon"></i>
+                        <div>
+                            <div class="contact-label">WhatsApp</div>
+                            <div class="contact-value" id="whatsapp"></div>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <i class="far fa-envelope contact-icon"></i>
+                        <div>
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value" id="email"></div>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fab fa-instagram contact-icon"></i>
+                        <div>
+                            <div class="contact-label">Instagram</div>
+                            <div class="contact-value" id="instagram"></div>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fab fa-facebook contact-icon"></i>
+                        <div>
+                            <div class="contact-label">Facebook</div>
+                            <div class="contact-value" id="facebook"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Support Information -->
+            <div class="info-card">
+                <h2 class="info-title">Support Information</h2>
+                <div class="info-content">
+                    <p><strong>Support Hours:</strong> <span id="supportHours"></span></p>
+                    <div class="support-message" id="supportMessage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+    <script src="shared-nav.js"></script>
+    <script>
+        // Load store information
+        function loadInfo() {
+            const info = JSON.parse(localStorage.getItem('storeInfo')) || {
+                stats: {
+                    totalTransactions: 0,
+                    completedOrders: 0,
+                    happyCustomers: 0
+                },
+                store: {
+                    name: 'BAYS STOREE',
+                    description: 'Your ultimate gaming hub for accounts and tools',
+                    operatingHours: '24/7'
+                },
+                contact: {
+                    whatsapp: '087817757668',
+                    email: '',
+                    instagram: '',
+                    facebook: ''
+                },
+                support: {
+                    hours: '24/7',
+                    message: 'We are here to help! Contact us anytime.'
+                }
+            };
+
+            // Set values for stats
+            document.getElementById('totalTransactions').textContent = info.stats.totalTransactions;
+            document.getElementById('completedOrders').textContent = info.stats.completedOrders;
+            document.getElementById('happyCustomers').textContent = info.stats.happyCustomers;
+            
+            // Set values for store info
+            document.getElementById('storeName').textContent = info.store.name;
+            document.getElementById('storeDescription').textContent = info.store.description;
+            document.getElementById('operatingHours').textContent = info.store.operatingHours;
+            
+            // Set values for contact info
+            document.getElementById('whatsapp').textContent = info.contact.whatsapp || 'Not available';
+            document.getElementById('email').textContent = info.contact.email || 'Not available';
+            document.getElementById('instagram').textContent = info.contact.instagram || 'Not available';
+            document.getElementById('facebook').textContent = info.contact.facebook || 'Not available';
+            
+            // Set values for support info
+            document.getElementById('supportHours').textContent = info.support.hours;
+            document.getElementById('supportMessage').textContent = info.support.message;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadInfo);
+    </script>
+</body>
+</html> 

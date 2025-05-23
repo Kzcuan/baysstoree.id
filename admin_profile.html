@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <title>BAYS STOREE - Admin Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #0066cc;
+            --dark-bg: #000000;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --darker-card-bg: rgba(10, 10, 10, 0.97);
+            --text-color: #ffffff;
+            --text-muted: #d0d0d0;
+            --border-color: rgba(77, 166, 255, 0.2);
+            --hover-color: #1a8cff;
+            --glow-color: rgba(77, 166, 255, 0.5);
+        }
+
+        .profile-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 25px rgba(77, 166, 255, 0.15);
+            animation: borderGlow 4s infinite;
+        }
+
+        .profile-image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .profile-image-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-image-upload:hover {
+            background: var(--hover-color);
+            transform: scale(1.1);
+        }
+
+        .profile-image-upload input {
+            display: none;
+        }
+
+        .profile-image-upload i {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .form-label {
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: var(--primary-color);
+            color: #ffffff;
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .btn-save {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        .btn-save:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .section-title {
+            color: var(--text-color);
+            text-shadow: 0 0 20px var(--glow-color);
+            font-weight: 800;
+            letter-spacing: 4px;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: neonPulse 3s infinite;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            border-left: 4px solid #28a745;
+        }
+
+        .toast.error {
+            border-left: 4px solid #dc3545;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">BAYS STOREE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Starter Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools.html">Tools List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h2 class="section-title">ADMIN PROFILE</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Profile Image Section -->
+                <div class="profile-section">
+                    <div class="profile-image-container">
+                        <img id="profileImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%234da6ff'/%3E%3Ctext x='50%' y='50%' font-family='Arial' font-size='80' fill='white' text-anchor='middle' dy='.3em'%3EA%3C/text%3E%3C/svg%3E" alt="Profile" class="profile-image">
+                        <label class="profile-image-upload">
+                            <input type="file" accept="image/*" onchange="updateProfileImage(event)">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="profile-section">
+                    <h3 class="mb-4">Personal Information</h3>
+                    <form id="personalInfoForm">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <button type="submit" class="btn btn-save">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Change Password Section -->
+                <div class="profile-section">
+                    <h3 class="mb-4">Change Password</h3>
+                    <form id="passwordForm">
+                        <div class="mb-3">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-save">
+                            <i class="fas fa-key"></i> Update Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Data management functions
+        const ADMIN_ACCOUNTS_KEY = 'adminAccounts';
+
+        function getAdminAccounts() {
+            return JSON.parse(localStorage.getItem(ADMIN_ACCOUNTS_KEY) || '[]');
+        }
+
+        function saveAdminAccounts(accounts) {
+            localStorage.setItem(ADMIN_ACCOUNTS_KEY, JSON.stringify(accounts));
+        }
+
+        function getAdminAccount(id) {
+            const adminAccounts = getAdminAccounts();
+            return adminAccounts.find(account => account.id === id);
+        }
+
+        function updateAdminAccount(id, updates) {
+            const adminAccounts = getAdminAccounts();
+            const index = adminAccounts.findIndex(account => account.id === id);
+            
+            if (index === -1) {
+                throw new Error('Admin account not found');
+            }
+
+            adminAccounts[index] = {
+                ...adminAccounts[index],
+                ...updates,
+                updatedAt: new Date().toISOString()
+            };
+
+            saveAdminAccounts(adminAccounts);
+            return adminAccounts[index];
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        // UI Functions
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.querySelector('.toast-container').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Check login status and load admin data
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('adminLoggedIn')) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const adminId = localStorage.getItem('currentAdminId');
+            if (!adminId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load admin data
+            const admin = getAdminAccount(adminId);
+            if (!admin) {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('currentAdminId');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Set profile image if exists
+            if (admin.image) {
+                document.getElementById('profileImage').src = admin.image;
+            }
+            
+            // Set form values
+            document.getElementById('username').value = admin.username || '';
+            document.getElementById('email').value = admin.email || '';
+
+            // Show welcome message
+            showToast(`Welcome back, ${admin.username}!`, 'info');
+
+            console.log('Profile page initialized for admin:', admin.username);
+        });
+
+        // Update profile image
+        function updateProfileImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('Image size should be less than 5MB', 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileImage').src = e.target.result;
+                    
+                    // Save to admin account
+                    const adminId = localStorage.getItem('currentAdminId');
+                    try {
+                        updateAdminAccount(adminId, {
+                            image: e.target.result
+                        });
+                        showToast('Profile image updated successfully', 'success');
+                    } catch (error) {
+                        showToast(error.message, 'error');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Handle personal info form submission
+        document.getElementById('personalInfoForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            if (!username || !email) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showToast('Please enter a valid email address', 'error');
+                return;
+            }
+
+            // Update admin account
+            const adminId = localStorage.getItem('currentAdminId');
+            try {
+                updateAdminAccount(adminId, {
+                    username,
+                    email
+                });
+                showToast('Personal information updated successfully', 'success');
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        };
+
+        // Handle password form submission
+        document.getElementById('passwordForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Basic validation
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                showToast('Please fill in all password fields', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showToast('New passwords do not match', 'error');
+                return;
+            }
+            
+            if (!validatePassword(newPassword)) {
+                showToast('New password must be at least 6 characters long', 'error');
+                return;
+            }
+            
+            // Verify current password
+            const adminId = localStorage.getItem('currentAdminId');
+            const admin = getAdminAccount(adminId);
+            
+            if (currentPassword !== admin.password) {
+                showToast('Current password is incorrect', 'error');
+                return;
+            }
+            
+            // Update password
+            try {
+                updateAdminAccount(adminId, {
+                    password: newPassword
+                });
+                
+                // Clear form
+                e.target.reset();
+                
+                showToast('Password updated successfully', 'success');
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        };
+
+        // Handle logout
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('currentAdminId');
+            window.location.href = 'login.html#logout';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>BAYS STOREE - History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Copy all the base styles from accounts.html */
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #0066cc;
+            --dark-bg: #000000;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --darker-card-bg: rgba(10, 10, 10, 0.97);
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-color: #66b3ff;
+            --border-color: rgba(77, 166, 255, 0.2);
+            --hover-color: #1a8cff;
+            --glow-color: rgba(77, 166, 255, 0.5);
+        }
+
+        /* Keep all the existing styles from accounts.html */
+        body {
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, 
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(77, 166, 255, 0.1) 50%,
+                rgba(10, 10, 10, 0.97) 100%
+            );
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color) !important;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: neonPulse 2s infinite;
+        }
+
+        .section-title {
+            color: #ffffff;
+            text-shadow: 0 0 20px var(--glow-color);
+            font-weight: 800;
+            letter-spacing: 4px;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: neonPulse 3s infinite;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 25px rgba(77, 166, 255, 0.15);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            animation: borderGlow 4s infinite;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        .card-body {
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.8),
+                rgba(10, 10, 10, 0.95)
+            );
+            border-top: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .history-info {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .history-info i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+            50% { text-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color), 0 0 35px var(--glow-color); }
+            100% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+            50% { border-color: var(--primary-color); box-shadow: 0 0 30px var(--glow-color); }
+            100% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+        }
+
+        .modal-content {
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(20, 20, 20, 0.95) 100%
+            );
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px var(--glow-color);
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            letter-spacing: 2px;
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Update scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--hover-color);
+        }
+
+        /* Update text colors for better visibility */
+        .card-text {
+            color: var(--text-color) !important;
+        }
+
+        .text-muted {
+            color: #d0d0d0 !important;
+        }
+
+        /* Add smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Update container spacing */
+        .container.mt-5 {
+            margin-top: 6rem !important;
+        }
+
+        /* Update card hover effect */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 35px rgba(77, 166, 255, 0.25);
+        }
+
+        /* Update history info style */
+        .history-info {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-size: 1.1rem;
+            animation: borderGlow 4s infinite;
+        }
+
+        .history-info i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        /* Update modal styles */
+        .modal-content {
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(20, 20, 20, 0.95) 100%
+            );
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px var(--glow-color);
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-header, .modal-footer {
+            border-color: var(--border-color);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 1.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            letter-spacing: 2px;
+        }
+
+        /* Update preview image */
+        .preview-image {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .preview-image {
+            transform: scale(1.05);
+        }
+
+        .no-image {
+            background: linear-gradient(
+                45deg,
+                var(--card-bg),
+                var(--darker-card-bg)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Improved dropdown styles */
+        .form-control {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.8);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--glow-color);
+            color: #ffffff;
+        }
+
+        /* Style for dropdown options */
+        .form-control option {
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        /* Filter container style */
+        .filter-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .filter-container select {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .filter-container select:focus {
+            background: rgba(30, 30, 30, 0.9);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .filter-container select option {
+            background: rgba(20, 20, 20, 0.95);
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        /* Add styles for edit button */
+        .btn-edit {
+            background: rgba(77, 166, 255, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            margin-left: 0.5rem;
+        }
+
+        .btn-edit:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .modal-body .form-control {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body .form-label {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .feature-toggles {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .form-check {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .form-check:hover {
+            background: rgba(77, 166, 255, 0.1);
+        }
+        
+        .form-check-label {
+            color: #ffffff;
+            margin-left: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-check-input {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-color: var(--border-color);
+            width: 3rem;
+            height: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.2rem rgba(77, 166, 255, 0.25);
+        }
+
+        /* Info Sidebar Styles */
+        .info-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            animation: borderGlow 4s infinite;
+        }
+
+        .info-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color);
+            background: rgba(77, 166, 255, 0.1);
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 1rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-text h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .info-text p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 1rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .help-text {
+            text-align: center;
+        }
+
+        .help-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .btn-support {
+            background: var(--primary-color);
+            color: #ffffff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .btn-support:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--glow-color);
+            color: #ffffff;
+        }
+
+        .btn-support i {
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 991px) {
+            .info-sidebar {
+                margin-top: 2rem;
+            }
+        }
+
+        .info-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            background: rgba(77, 166, 255, 0.1);
+            border: 1px solid var(--border-color);
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .info-button:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .info-button i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .info-button:hover i {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Check if user has access
+        if (!localStorage.getItem('adminLoggedIn') && !localStorage.getItem('guestAccess')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Loading Indicator -->
+    <div class="loading" style="display: none;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">BAYS STOREE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Starter Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools.html">Tools List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link info-button" href="info.html">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2 class="section-title">TRANSACTION HISTORY</h2>
+        
+        <!-- Filter Controls -->
+        <div class="filter-container mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <select class="form-control" id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="account">Accounts</option>
+                        <option value="tool">Tools</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <select class="form-control" id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <select class="form-control" id="sortOrder">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- History List -->
+        <div class="row" id="historyList">
+            <!-- History items will be loaded dynamically -->
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+    <script src="shared-nav.js"></script>
+    <script>
+        // Show loading indicator
+        function showLoading() {
+            document.querySelector('.loading').style.display = 'flex';
+        }
+
+        // Hide loading indicator
+        function hideLoading() {
+            document.querySelector('.loading').style.display = 'none';
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.querySelector('.toast-container').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Load and filter history
+        function loadHistory() {
+            showLoading();
+            try {
+                const history = getItems('history') || []; // Add default empty array
+                const historyList = document.getElementById('historyList');
+                
+                if (historyList) {
+                    // Get filter values
+                    const typeFilter = document.getElementById('typeFilter').value;
+                    const statusFilter = document.getElementById('statusFilter').value;
+                    const sortOrder = document.getElementById('sortOrder').value;
+
+                    // Filter and sort history items
+                    let filteredHistory = history.filter(item => {
+                        const typeMatch = typeFilter === 'all' || item.type === typeFilter;
+                        const statusMatch = statusFilter === 'all' || item.status === statusFilter;
+                        return typeMatch && statusMatch;
+                    });
+
+                    // Sort items
+                    filteredHistory.sort((a, b) => {
+                        const dateA = new Date(a.date);
+                        const dateB = new Date(b.date);
+                        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+                    });
+
+                    // If no items found, show message
+                    if (filteredHistory.length === 0) {
+                        historyList.innerHTML = `
+                            <div class="col-12 text-center">
+                                <div class="alert alert-info" style="background: rgba(0,0,0,0.7); border-color: var(--border-color); color: #fff;">
+                                    No transaction history found
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    const historyHtml = filteredHistory.map(item => `
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-badge ${item.status.toLowerCase()}">${item.status}</div>
+                                ${item.image ? 
+                                    `<img src="${item.image}" class="preview-image" alt="${item.title}" onerror="this.onerror=null; this.src='placeholder.jpg';">` :
+                                    `<div class="preview-image no-image">No Image</div>`
+                                }
+                                <div class="card-body d-flex flex-column">
+                                    <span class="category-badge">${item.type === 'account' ? 'Game Account' : 'Game Tool'}</span>
+                                    <h5 class="card-title">${item.title}</h5>
+                                    <p class="card-text text-muted">${item.description}</p>
+                                    <div class="price-tag">Status: ${item.status}</div>
+                                    <p class="text-muted">Date: ${new Date(item.date).toLocaleDateString()}</p>
+                                    <div class="mt-auto d-flex justify-content-between">
+                                        <button class="btn btn-detail" onclick="showDetails(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                                            <i class="fas fa-info-circle"></i> Details
+                                        </button>
+                                        ${localStorage.getItem('adminLoggedIn') ? `
+                                            <button class="btn btn-edit" onclick="editItem(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    historyList.innerHTML = historyHtml;
+                }
+            } catch (error) {
+                console.error('Error loading history:', error);
+                showToast('Error loading history', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Show details modal
+        function showDetails(item) {
+            try {
+                const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+                const modalTitle = document.querySelector('#detailModal .modal-title');
+                const modalBody = document.querySelector('#detailModal .modal-body');
+                
+                modalTitle.textContent = item.title;
+                modalBody.innerHTML = `
+                    ${item.image ? 
+                        `<img src="${item.image}" class="img-fluid rounded mb-4" alt="${item.title}" onerror="this.onerror=null; this.src='placeholder.jpg';">` :
+                        ''
+                    }
+                    <span class="category-badge">${item.type === 'account' ? 'Game Account' : 'Game Tool'}</span>
+                    <h4 class="mb-3">${item.title}</h4>
+                    <p class="text-muted mb-4">${item.description}</p>
+                    <div class="features-list mb-4">
+                        <h5 class="mb-3">Transaction Details:</h5>
+                        <li><i class="fas fa-calendar"></i> Date: ${new Date(item.date).toLocaleString()}</li>
+                        <li><i class="fas fa-tag"></i> Type: ${item.type === 'account' ? 'Game Account' : 'Game Tool'}</li>
+                        <li><i class="fas fa-info-circle"></i> Status: ${item.status}</li>
+                    </div>
+                `;
+                
+                modal.show();
+            } catch (error) {
+                console.error('Error showing details:', error);
+                showToast('Error showing details', 'error');
+            }
+        }
+
+        // Edit item function for admin
+        function editItem(item) {
+            try {
+                const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+                const modalTitle = document.querySelector('#detailModal .modal-title');
+                const modalBody = document.querySelector('#detailModal .modal-body');
+                
+                modalTitle.textContent = `Edit: ${item.title}`;
+                modalBody.innerHTML = `
+                    <form id="editForm" onsubmit="saveEdit(event, '${item.id}')">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" name="title" value="${item.title}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3" required>${item.description}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Type</label>
+                            <select class="form-control" name="type" required>
+                                <option value="account" ${item.type === 'account' ? 'selected' : ''}>Game Account</option>
+                                <option value="tool" ${item.type === 'tool' ? 'selected' : ''}>Game Tool</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-control" name="status" required>
+                                <option value="completed" ${item.status === 'completed' ? 'selected' : ''}>Completed</option>
+                                <option value="pending" ${item.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                <option value="cancelled" ${item.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Image URL</label>
+                            <input type="url" class="form-control" name="image" value="${item.image || ''}" placeholder="Enter image URL">
+                        </div>
+                        
+                        <!-- Product Features -->
+                        <div class="mb-4">
+                            <label class="form-label d-block">Product Features</label>
+                            <div class="feature-toggles">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="features.instantDelivery" 
+                                        id="instantDelivery" ${item.features?.instantDelivery ? 'checked' : ''}>
+                                    <label class="form-check-label" for="instantDelivery">Instant Delivery</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="features.fullAccess" 
+                                        id="fullAccess" ${item.features?.fullAccess ? 'checked' : ''}>
+                                    <label class="form-check-label" for="fullAccess">Full Access</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="features.support" 
+                                        id="support" ${item.features?.support ? 'checked' : ''}>
+                                    <label class="form-check-label" for="support">Support</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                `;
+                
+                modal.show();
+            } catch (error) {
+                console.error('Error showing edit form:', error);
+                showToast('Error showing edit form', 'error');
+            }
+        }
+
+        // Save edit changes
+        function saveEdit(event, itemId) {
+            event.preventDefault();
+            
+            try {
+                const form = event.target;
+                const formData = new FormData(form);
+                const updatedItem = Object.fromEntries(formData.entries());
+                
+                // Get existing history
+                let history = getItems('history') || [];
+                
+                // Find and update the item
+                const index = history.findIndex(item => item.id === itemId);
+                if (index !== -1) {
+                    history[index] = {
+                        ...history[index],
+                        ...updatedItem,
+                        lastModified: new Date().toISOString()
+                    };
+                    
+                    // Save updated history
+                    localStorage.setItem('history', JSON.stringify(history));
+                    
+                    // Close modal and refresh list
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('detailModal'));
+                    modal.hide();
+                    
+                    loadHistory();
+                    showToast('History item updated successfully', 'success');
+                }
+            } catch (error) {
+                console.error('Error saving edit:', error);
+                showToast('Error saving changes', 'error');
+            }
+        }
+
+        // Load history when page loads
+        document.addEventListener('DOMContentLoaded', loadHistory);
+
+        // Add filter change event listeners
+        document.getElementById('typeFilter').addEventListener('change', loadHistory);
+        document.getElementById('statusFilter').addEventListener('change', loadHistory);
+        document.getElementById('sortOrder').addEventListener('change', loadHistory);
+
+        // Reload data every 5 seconds to check for updates
+        const dataRefreshInterval = setInterval(loadHistory, 5000);
+
+        // Cleanup interval when page unloads
+        window.addEventListener('unload', () => {
+            clearInterval(dataRefreshInterval);
+        });
+
+        // Update stats in the sidebar
+        function updateStats() {
+            const history = getItems('history') || [];
+            const totalTransactions = history.length;
+            const completedTransactions = history.filter(item => item.status === 'completed').length;
+
+            document.getElementById('totalTransactions').textContent = totalTransactions;
+            document.getElementById('completedTransactions').textContent = completedTransactions;
+        }
+
+        // Add updateStats to the loadData function
+        const originalLoadData = loadData;
+        loadData = function() {
+            originalLoadData();
+            updateStats();
+        };
+    </script>
+</body>
+</html> 

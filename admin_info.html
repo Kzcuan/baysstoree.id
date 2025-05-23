@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAYS STOREE - Manage Information</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-header {
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .admin-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin: 0;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .admin-breadcrumb {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .admin-breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .admin-breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+
+        .admin-breadcrumb .separator {
+            color: var(--text-muted);
+            margin: 0 0.5rem;
+        }
+
+        .info-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(77, 166, 255, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .info-title {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .info-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 2px;
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 0.5rem;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .info-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .info-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-label {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .stat-label {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            width: 40px;
+            text-align: center;
+        }
+
+        .btn-save {
+            position: relative;
+            overflow: hidden;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-save::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, transparent, rgba(77, 166, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .btn-save:hover::before {
+            top: -50%;
+            left: -50%;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .info-section:hover .info-title {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">BAYS STOREE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Starter Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools.html">Tools List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="admin-header">
+        <div class="container">
+            <h1 class="admin-title">Admin Dashboard</h1>
+            <div class="admin-breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="separator">/</span>
+                <a href="#">Admin</a>
+                <span class="separator">/</span>
+                <span>Store Information</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form id="infoForm" onsubmit="saveInfo(event)">
+            <!-- Quick Stats Section -->
+            <div class="info-section">
+                <div class="info-title">
+                    Quick Stats
+                    <small class="text-muted">(Click to edit)</small>
+                </div>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Total Transactions</div>
+                        <input type="number" class="stat-value info-input" id="totalTransactions" value="0">
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Completed Orders</div>
+                        <input type="number" class="stat-value info-input" id="completedOrders" value="0">
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Happy Customers</div>
+                        <input type="number" class="stat-value info-input" id="happyCustomers" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Store Information -->
+            <div class="info-section">
+                <div class="info-title">Store Information</div>
+                <div class="info-group">
+                    <label class="info-label">Store Name</label>
+                    <input type="text" class="info-input" id="storeName" value="BAYS STOREE">
+                </div>
+                <div class="info-group">
+                    <label class="info-label">Store Description</label>
+                    <textarea class="info-input" id="storeDescription" rows="3"></textarea>
+                </div>
+                <div class="info-group">
+                    <label class="info-label">Operating Hours</label>
+                    <input type="text" class="info-input" id="operatingHours" value="24/7">
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="info-section">
+                <div class="info-title">Contact Information</div>
+                <div class="social-links">
+                    <div class="social-item">
+                        <i class="fab fa-whatsapp social-icon"></i>
+                        <input type="text" class="info-input" id="whatsapp" placeholder="WhatsApp Number">
+                    </div>
+                    <div class="social-item">
+                        <i class="far fa-envelope social-icon"></i>
+                        <input type="email" class="info-input" id="email" placeholder="Email Address">
+                    </div>
+                    <div class="social-item">
+                        <i class="fab fa-instagram social-icon"></i>
+                        <input type="text" class="info-input" id="instagram" placeholder="Instagram Username">
+                    </div>
+                    <div class="social-item">
+                        <i class="fab fa-facebook social-icon"></i>
+                        <input type="text" class="info-input" id="facebook" placeholder="Facebook Page">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Information -->
+            <div class="info-section">
+                <div class="info-title">Support Information</div>
+                <div class="info-group">
+                    <label class="info-label">Support Hours</label>
+                    <input type="text" class="info-input" id="supportHours" value="24/7">
+                </div>
+                <div class="info-group">
+                    <label class="info-label">Support Message</label>
+                    <textarea class="info-input" id="supportMessage" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-save">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+    <script src="shared-nav.js"></script>
+    <script>
+        // Load store information
+        function loadInfo() {
+            const info = JSON.parse(localStorage.getItem('storeInfo')) || {
+                stats: {
+                    totalTransactions: 0,
+                    completedOrders: 0,
+                    happyCustomers: 0
+                },
+                store: {
+                    name: 'BAYS STOREE',
+                    description: 'Your ultimate gaming hub for accounts and tools',
+                    operatingHours: '24/7'
+                },
+                contact: {
+                    whatsapp: '087817757668',
+                    email: '',
+                    instagram: '',
+                    facebook: ''
+                },
+                support: {
+                    hours: '24/7',
+                    message: 'We are here to help! Contact us anytime.'
+                }
+            };
+
+            // Set values
+            document.getElementById('totalTransactions').value = info.stats.totalTransactions;
+            document.getElementById('completedOrders').value = info.stats.completedOrders;
+            document.getElementById('happyCustomers').value = info.stats.happyCustomers;
+            
+            document.getElementById('storeName').value = info.store.name;
+            document.getElementById('storeDescription').value = info.store.description;
+            document.getElementById('operatingHours').value = info.store.operatingHours;
+            
+            document.getElementById('whatsapp').value = info.contact.whatsapp;
+            document.getElementById('email').value = info.contact.email;
+            document.getElementById('instagram').value = info.contact.instagram;
+            document.getElementById('facebook').value = info.contact.facebook;
+            
+            document.getElementById('supportHours').value = info.support.hours;
+            document.getElementById('supportMessage').value = info.support.message;
+        }
+
+        // Save store information
+        function saveInfo(e) {
+            e.preventDefault();
+            
+            const info = {
+                stats: {
+                    totalTransactions: parseInt(document.getElementById('totalTransactions').value) || 0,
+                    completedOrders: parseInt(document.getElementById('completedOrders').value) || 0,
+                    happyCustomers: parseInt(document.getElementById('happyCustomers').value) || 0
+                },
+                store: {
+                    name: document.getElementById('storeName').value,
+                    description: document.getElementById('storeDescription').value,
+                    operatingHours: document.getElementById('operatingHours').value
+                },
+                contact: {
+                    whatsapp: document.getElementById('whatsapp').value,
+                    email: document.getElementById('email').value,
+                    instagram: document.getElementById('instagram').value,
+                    facebook: document.getElementById('facebook').value
+                },
+                support: {
+                    hours: document.getElementById('supportHours').value,
+                    message: document.getElementById('supportMessage').value
+                }
+            };
+
+            localStorage.setItem('storeInfo', JSON.stringify(info));
+            alert('Information saved successfully!');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadInfo);
+    </script>
+</body>
+</html> 

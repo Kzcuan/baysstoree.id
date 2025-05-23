@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAYS STOREE - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #0066cc;
+            --dark-bg: #000000;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-color: rgba(77, 166, 255, 0.2);
+            --hover-color: #1a8cff;
+            --glow-color: rgba(77, 166, 255, 0.5);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 25px rgba(77, 166, 255, 0.15);
+            animation: borderGlow 4s infinite;
+            transition: all 0.3s ease;
+            margin: 2rem auto;
+        }
+
+        #setupFormContainer {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #setupFormContainer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px var(--glow-color);
+            animation: titleGlow 3s infinite;
+        }
+
+        .form-label {
+            color: var(--text-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: var(--primary-color);
+            color: var(--text-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .btn-login {
+            background: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .btn-guest {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-guest:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--text-muted);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        .guest-info {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .guest-info i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .register-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: var(--hover-color);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            border-left: 4px solid #28a745;
+        }
+
+        .toast.error {
+            border-left: 4px solid #dc3545;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 20px rgba(77, 166, 255, 0.15); }
+            50% { box-shadow: 0 0 30px rgba(77, 166, 255, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(77, 166, 255, 0.15); }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px var(--glow-color); }
+            50% { text-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+            100% { text-shadow: 0 0 10px var(--glow-color); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Login Form Container -->
+    <div id="loginFormContainer" class="login-container">
+        <div class="login-header">
+            <h1 class="login-title">ADMIN LOGIN</h1>
+            <p>Enter your credentials to access the admin panel</p>
+        </div>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-login">
+                <i class="fas fa-sign-in-alt"></i> Login as Admin
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <button type="button" class="btn btn-guest" onclick="continueAsGuest()">
+            <i class="fas fa-user"></i> Continue as Guest
+        </button>
+
+        <div class="guest-info">
+            <i class="fas fa-info-circle"></i>
+            Guest users can browse products but cannot access admin features
+        </div>
+
+        <div class="register-link">
+            <p>First time setup? <a href="#" onclick="startSetupProcess()">Create Admin Account</a></p>
+        </div>
+    </div>
+
+    <!-- Setup Form Container (Hidden by default) -->
+    <div id="setupFormContainer" class="login-container" style="display: none;">
+        <div class="login-header">
+            <h1 class="login-title">CREATE ADMIN</h1>
+            <p>Set up your admin account credentials</p>
+        </div>
+        <form id="setupForm">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control" id="setupUsername" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="setupEmail" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" id="setupPassword" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="setupConfirmPassword" required>
+            </div>
+            <button type="submit" class="btn btn-login">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+        </form>
+        <div class="register-link">
+            <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Data management functions
+        const ADMIN_ACCOUNTS_KEY = 'adminAccounts';
+        const ADMIN_DATA_KEY = 'adminData_';
+
+        function initializeData() {
+            if (!localStorage.getItem(ADMIN_ACCOUNTS_KEY)) {
+                localStorage.setItem(ADMIN_ACCOUNTS_KEY, JSON.stringify([]));
+            }
+        }
+
+        function getAdminAccounts() {
+            return JSON.parse(localStorage.getItem(ADMIN_ACCOUNTS_KEY) || '[]');
+        }
+
+        function saveAdminAccounts(accounts) {
+            localStorage.setItem(ADMIN_ACCOUNTS_KEY, JSON.stringify(accounts));
+        }
+
+        function createAdminAccount(username, email, password, image = '') {
+            const adminAccounts = getAdminAccounts();
+            
+            if (adminAccounts.some(account => account.username === username)) {
+                throw new Error('Username already exists');
+            }
+
+            const adminId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+            const newAdmin = {
+                id: adminId,
+                username,
+                email,
+                password,
+                image,
+                createdAt: new Date().toISOString(),
+                lastLogin: null,
+                isActive: true
+            };
+
+            // Initialize admin's personal data storage
+            initializeAdminData(adminId);
+
+            adminAccounts.push(newAdmin);
+            saveAdminAccounts(adminAccounts);
+            return newAdmin;
+        }
+
+        function initializeAdminData(adminId) {
+            const adminDataKey = ADMIN_DATA_KEY + adminId;
+            if (!localStorage.getItem(adminDataKey)) {
+                const initialData = {
+                    posts: [],
+                    accounts: [],
+                    tools: [],
+                    history: [],
+                    settings: {
+                        theme: 'dark',
+                        notifications: true
+                    }
+                };
+                localStorage.setItem(adminDataKey, JSON.stringify(initialData));
+            }
+        }
+
+        // Add login attempt tracking
+        const LOGIN_ATTEMPTS_KEY = 'loginAttempts';
+        const MAX_LOGIN_ATTEMPTS = 3;
+        const LOCKOUT_TIME = 15 * 60 * 1000; // 15 minutes in milliseconds
+
+        function getLoginAttempts(username) {
+            const attempts = JSON.parse(localStorage.getItem(LOGIN_ATTEMPTS_KEY) || '{}');
+            return attempts[username] || { count: 0, timestamp: 0 };
+        }
+
+        function updateLoginAttempts(username, reset = false) {
+            const attempts = JSON.parse(localStorage.getItem(LOGIN_ATTEMPTS_KEY) || '{}');
+            if (reset) {
+                delete attempts[username];
+            } else {
+                attempts[username] = {
+                    count: (attempts[username]?.count || 0) + 1,
+                    timestamp: Date.now()
+                };
+            }
+            localStorage.setItem(LOGIN_ATTEMPTS_KEY, JSON.stringify(attempts));
+        }
+
+        // UI Functions
+        function showLoading() {
+            document.querySelector('.loading-spinner').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.querySelector('.loading-spinner').style.display = 'none';
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.querySelector('.toast-container').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function startSetupProcess() {
+            const pin = prompt('Please enter the admin creation PIN:');
+            
+            if (!pin) {
+                showToast('PIN is required', 'error');
+                return;
+            }
+
+            if (pin !== '06012005') {
+                showToast('Invalid PIN. Access denied.', 'error');
+                return;
+            }
+
+            // Check if admin account already exists
+            const adminAccounts = getAdminAccounts();
+            if (adminAccounts.length > 0) {
+                showToast('Admin account already exists', 'error');
+                return;
+            }
+
+            // Show setup form and hide login form
+            const loginForm = document.getElementById('loginFormContainer');
+            const setupForm = document.getElementById('setupFormContainer');
+            
+            if (loginForm && setupForm) {
+                loginForm.style.display = 'none';
+                setupForm.style.display = 'block';
+                // Add visible class after a small delay to trigger animation
+                setTimeout(() => {
+                    setupForm.classList.add('visible');
+                }, 10);
+                // Scroll to the setup form
+                setupForm.scrollIntoView({ behavior: 'smooth' });
+                showToast('PIN verified. You can now create an admin account.', 'success');
+            } else {
+                showToast('Error loading setup form', 'error');
+            }
+        }
+
+        function showLoginForm() {
+            const loginForm = document.getElementById('loginFormContainer');
+            const setupForm = document.getElementById('setupFormContainer');
+            
+            if (loginForm && setupForm) {
+                setupForm.classList.remove('visible');
+                setTimeout(() => {
+                    setupForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                }, 300);
+            }
+        }
+
+        function continueAsGuest() {
+            // Set guest access flag
+            localStorage.setItem('guestAccess', 'true');
+            
+            // Show welcome message
+            showToast('Welcome! Browsing as guest...', 'success');
+            
+            // Redirect to main page after short delay
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Form Handlers
+        async function handleSetupSubmit(e) {
+            e.preventDefault();
+            showLoading();
+
+            const username = document.getElementById('setupUsername').value.trim();
+            const email = document.getElementById('setupEmail').value.trim();
+            const password = document.getElementById('setupPassword').value;
+            const confirmPassword = document.getElementById('setupConfirmPassword').value;
+
+            try {
+                if (!username || !email || !password || !confirmPassword) {
+                    throw new Error('Please fill in all fields');
+                }
+
+                if (!validateEmail(email)) {
+                    throw new Error('Please enter a valid email address');
+                }
+
+                if (!validatePassword(password)) {
+                    throw new Error('Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character');
+                }
+
+                if (password !== confirmPassword) {
+                    throw new Error('Passwords do not match');
+                }
+
+                const hashedPassword = await hashPassword(password);
+                const admin = createAdminAccount(username, email, hashedPassword);
+                showToast('Admin account created successfully! You can now login.', 'success');
+                setTimeout(() => {
+                    showLoginForm();
+                }, 1500);
+            } catch (error) {
+                showToast(error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function handleLoginSubmit(e) {
+            e.preventDefault();
+            showLoading();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                // Check login attempts
+                const attempts = getLoginAttempts(username);
+                if (attempts.count >= MAX_LOGIN_ATTEMPTS) {
+                    const timeLeft = LOCKOUT_TIME - (Date.now() - attempts.timestamp);
+                    if (timeLeft > 0) {
+                        throw new Error(`Account temporarily locked. Please try again in ${Math.ceil(timeLeft / 60000)} minutes.`);
+                    } else {
+                        updateLoginAttempts(username, true); // Reset attempts after lockout period
+                    }
+                }
+
+                const adminAccounts = getAdminAccounts();
+                const admin = adminAccounts.find(a => a.username === username);
+                
+                if (!admin) {
+                    updateLoginAttempts(username);
+                    throw new Error('Username not found');
+                }
+
+                const hashedPassword = await hashPassword(password);
+                if (admin.password !== hashedPassword) {
+                    updateLoginAttempts(username);
+                    throw new Error('Incorrect password');
+                }
+
+                // Successful login - reset attempts
+                updateLoginAttempts(username, true);
+
+                // Update last login
+                admin.lastLogin = new Date().toISOString();
+                saveAdminAccounts(adminAccounts);
+
+                // Set login status
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('currentAdminId', admin.id);
+
+                showToast('Login successful! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'admin_profile.html';
+                }, 1500);
+            } catch (error) {
+                let errorMessage = error.message;
+                if (errorMessage === 'Username not found') {
+                    errorMessage = 'Login failed: Username does not exist';
+                } else if (errorMessage === 'Incorrect password') {
+                    const attempts = getLoginAttempts(username);
+                    const remainingAttempts = MAX_LOGIN_ATTEMPTS - attempts.count;
+                    errorMessage = `Login failed: Incorrect password. ${remainingAttempts} attempts remaining.`;
+                }
+                showToast(errorMessage, 'error');
+                document.getElementById('password').value = '';
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            return passwordRegex.test(password);
+        }
+
+        // Add password hashing function
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Clear any existing session if coming from logout
+            if (window.location.hash === '#logout') {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('currentAdminId');
+                localStorage.removeItem('guestAccess');
+                window.location.hash = '';
+                showToast('You have been logged out successfully', 'info');
+            }
+
+            // Initialize data
+            initializeData();
+
+            // Set up form handlers
+            document.getElementById('loginForm').onsubmit = handleLoginSubmit;
+            document.getElementById('setupForm').onsubmit = handleSetupSubmit;
+        });
+    </script>
+</body>
+</html> 

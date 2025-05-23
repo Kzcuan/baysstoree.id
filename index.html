@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>BAYS STOREE - Your Ultimate Gaming Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #0066cc;
+            --dark-bg: #000000;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --darker-card-bg: rgba(10, 10, 10, 0.97);
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-color: #66b3ff;
+            --border-color: rgba(77, 166, 255, 0.2);
+            --hover-color: #1a8cff;
+            --glow-color: rgba(77, 166, 255, 0.5);
+        }
+
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+            50% { text-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color), 0 0 35px var(--glow-color); }
+            100% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+            50% { border-color: var(--primary-color); box-shadow: 0 0 30px var(--glow-color); }
+            100% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+        }
+
+        @keyframes floatEffect {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            position: relative;
+            overflow-x: hidden;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at top right, rgba(77, 166, 255, 0.1), transparent 50%),
+                radial-gradient(circle at bottom left, rgba(77, 166, 255, 0.1), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(90deg, 
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(77, 166, 255, 0.1) 50%,
+                rgba(10, 10, 10, 0.97) 100%
+            );
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 0 20px var(--glow-color);
+            animation: gradientBG 15s ease infinite;
+            background-size: 200% 200%;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color) !important;
+            text-shadow: 0 0 15px var(--glow-color);
+            letter-spacing: 3px;
+            animation: neonPulse 2s infinite;
+        }
+
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: #ffffff !important;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .section-title {
+            color: #ffffff;
+            text-shadow: 0 0 20px var(--glow-color),
+                         0 0 40px var(--glow-color);
+            font-weight: 800;
+            letter-spacing: 4px;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: neonPulse 3s infinite;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .section-title::before {
+            left: -60px;
+        }
+
+        .section-title::after {
+            right: -60px;
+        }
+
+        .section {
+            position: relative;
+            padding: 60px 0;
+            overflow: hidden;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.6)
+            );
+            margin: 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            scroll-margin-top: 80px;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent,
+                var(--primary-color),
+                transparent
+            );
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 25px rgba(77, 166, 255, 0.15);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            animation: borderGlow 4s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-body {
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.8),
+                rgba(10, 10, 10, 0.95)
+            );
+            border-top: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(77, 166, 255, 0.3);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card-text {
+            color: var(--text-color) !important;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-badge {
+            background: var(--secondary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(77, 166, 255, 0.2),
+                transparent
+            );
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover::before {
+            top: -50%;
+            left: -50%;
+            transform: rotate(45deg);
+        }
+
+        .btn-detail {
+            background-color: var(--darker-card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 600;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-detail:hover {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border-color: var(--hover-color);
+            box-shadow: 0 0 15px var(--glow-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-buy {
+            background-color: var(--primary-color);
+            border: none;
+            box-shadow: 0 0 10px var(--glow-color);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-buy:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.9) 0%,
+                rgba(77, 166, 255, 0.1) 100%
+            );
+            text-align: center;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 45%, var(--primary-color) 49%, transparent 51%);
+            background-size: 10px 10px;
+            opacity: 0.1;
+            animation: borderGlow 4s infinite;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 30px var(--glow-color),
+                         0 0 60px var(--glow-color);
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+            animation: neonPulse 3s infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 1rem 1rem 0 0;
+            margin-bottom: 0;
+            display: block;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .preview-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                transparent,
+                rgba(77, 166, 255, 0.1)
+            );
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .card:hover .preview-image::after {
+            opacity: 1;
+        }
+
+        .no-image {
+            background: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+            height: 300px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .features-list li {
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list li i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .price-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 15px var(--glow-color);
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            background: linear-gradient(
+                45deg,
+                rgba(77, 166, 255, 0.1),
+                rgba(77, 166, 255, 0.2)
+            );
+            border: 1px solid var(--border-color);
+        }
+
+        .category-badge {
+            background: var(--secondary-color);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            display: inline-block;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .modal-content {
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(20, 20, 20, 0.95) 100%
+            );
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px var(--glow-color);
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            letter-spacing: 2px;
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-close {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            opacity: 0.8;
+        }
+
+        .modal-body {
+            color: #e0e0e0;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-body h4 {
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .modal-body .text-muted {
+            color: #b0b0b0 !important;
+        }
+
+        .social-links {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+        }
+
+        .social-links::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg,
+                var(--primary-color),
+                var(--secondary-color),
+                var(--primary-color)
+            );
+            z-index: -1;
+            opacity: 0.1;
+            border-radius: 10px;
+            animation: borderGlow 4s infinite;
+        }
+
+        .social-links a {
+            font-size: 2rem;
+            margin: 0 1.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--glow-color);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px var(--glow-color);
+            animation: floatEffect 2s infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--hover-color);
+        }
+
+        /* Update text colors for better visibility */
+        .text-muted {
+            color: #d0d0d0 !important;
+        }
+
+        /* Add smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Loading Indicator -->
+    <div class="loading" style="display: none;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">BAYS STOREE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Starter Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools.html">Tools List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section" id="home">
+        <div class="container">
+            <h1 class="hero-title">Welcome to Bays Storee</h1>
+            <p class="hero-subtitle">Your ultimate destination for game accounts, mods, and tools</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="section" id="featured">
+            <div class="container">
+                <h2 class="section-title">Latest Updated Games</h2>
+                <div class="row" id="latestGames">
+                    <!-- Games will be loaded here dynamically -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Social Links -->
+    <div class="container">
+        <div class="social-links text-center">
+            <a href="https://wa.me/087817757668" target="_blank" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://instagram.com/your-instagram" target="_blank" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com/your-facebook" target="_blank" title="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-buy" target="_blank">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+    <script src="shared-nav.js"></script>
+    <script>
+        // Show loading indicator
+        function showLoading() {
+            document.querySelector('.loading').style.display = 'flex';
+        }
+
+        // Hide loading indicator
+        function hideLoading() {
+            document.querySelector('.loading').style.display = 'none';
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.querySelector('.toast-container').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Enhanced logout function
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('username');
+            localStorage.removeItem('isSuperAdmin');
+            window.location.href = 'index.html';
+        }
+
+        // Function to display latest games
+        function displayLatestGames() {
+            const gamesContainer = document.getElementById('latestGames');
+            const latestGames = getLatestGamesForHome();
+            
+            gamesContainer.innerHTML = '';
+            
+            latestGames.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'col-md-4 mb-4';
+                gameCard.innerHTML = `
+                    <div class="card h-100">
+                        <img src="${game.image || 'placeholder.jpg'}" class="card-img-top" alt="${game.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${game.title}</h5>
+                            <p class="card-text">${game.description}</p>
+                            <a href="accounts.html#${game.id}" class="btn btn-primary">View Details</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Updated: ${new Date(game.date).toLocaleDateString()}</small>
+                        </div>
+                    </div>
+                `;
+                gamesContainer.appendChild(gameCard);
+            });
+        }
+
+        // Update games list when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            displayLatestGames();
+        });
+
+        // Add smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>BAYS STOREE - All Accounts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .search-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: borderGlow 4s infinite;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .filter-select {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: 'Rajdhani', sans-serif;
+            min-width: 150px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .account-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .account-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .account-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(77, 166, 255, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .account-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+
+        .account-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .account-price {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffffff;
+            font-size: 2rem;
+            margin: 1rem 0;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .account-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .account-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .account-features li i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .btn-buy {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        .btn-buy:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--text-muted);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            grid-column: 1 / -1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .account-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Check if user has access
+        if (!localStorage.getItem('adminLoggedIn') && !localStorage.getItem('guestAccess')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Loading Indicator -->
+    <div class="loading" style="display: none;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">BAYS STOREE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accounts.html">Starter Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools.html">Tools List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 class="section-title">STARTER ACCOUNTS</h1>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search accounts by name, features, or price...">
+                <select id="priceFilter" class="filter-select">
+                    <option value="all">All Prices</option>
+                    <option value="0-50">$0 - $50</option>
+                    <option value="51-100">$51 - $100</option>
+                    <option value="101-200">$101 - $200</option>
+                    <option value="201+">$201+</option>
+                </select>
+                <select id="typeFilter" class="filter-select">
+                    <option value="all">All Types</option>
+                    <option value="starter">Starter</option>
+                    <option value="premium">Premium</option>
+                    <option value="ultimate">Ultimate</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Accounts Grid -->
+        <div class="account-grid" id="accountsGrid">
+            <!-- Accounts will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-buy" target="_blank">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+    <script src="shared-nav.js"></script>
+    <script>
+        // Show loading indicator
+        function showLoading() {
+            document.querySelector('.loading').style.display = 'flex';
+        }
+
+        // Hide loading indicator
+        function hideLoading() {
+            document.querySelector('.loading').style.display = 'none';
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.querySelector('.toast-container').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Check if logged in and redirect if needed
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn') || localStorage.getItem('guestAccess');
+            const currentPath = window.location.pathname;
+            const loginPage = currentPath.includes('login.html');
+            
+            if (!isLoggedIn && !loginPage) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Initialize authentication
+        if (checkAuth()) {
+            // Add admin links and logout button only if admin is logged in
+            if (localStorage.getItem('adminLoggedIn')) {
+                const navbarNav = document.querySelector('#navbarNav .navbar-nav');
+                const logoutLink = document.createElement('li');
+                logoutLink.className = 'nav-item';
+                logoutLink.innerHTML = '<a class="nav-link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>';
+                
+                const adminLinks = document.createElement('li');
+                adminLinks.className = 'nav-item dropdown';
+                adminLinks.innerHTML = `
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-cog"></i> Admin
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="admin_accounts.html">Manage Accounts</a></li>
+                        <li><a class="dropdown-item" href="admin_tools.html">Manage Tools</a></li>
+                        <li><a class="dropdown-item" href="admin_history.html">Manage History</a></li>
+                    </ul>
+                `;
+                navbarNav.appendChild(adminLinks);
+                navbarNav.appendChild(logoutLink);
+            }
+        }
+
+        // Enhanced logout function
+        function logout() {
+            localStorage.removeItem('storeLoggedIn');
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+
+        // Load accounts
+        function loadAccounts() {
+            showLoading();
+            try {
+                const accounts = getItems('accounts');
+                const accountsGrid = document.getElementById('accountsGrid');
+                
+                if (!accounts || accounts.length === 0) {
+                    accountsGrid.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-info-circle"></i>
+                            <p>No accounts available yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Sort accounts by date, newest first
+                const sortedAccounts = [...accounts].sort((a, b) => 
+                    new Date(b.date || 0) - new Date(a.date || 0)
+                );
+
+                accountsGrid.innerHTML = sortedAccounts.map(account => `
+                    <div class="account-card">
+                        <div class="card-badge">${account.type || 'Starter'}</div>
+                        <img src="${account.image}" class="preview-image" alt="${account.title}" 
+                             onerror="this.src='placeholder.jpg';">
+                        <div class="card-body">
+                            <span class="category-badge">Game Account</span>
+                            <h5 class="card-title">${account.title}</h5>
+                            <ul class="features-list">
+                                ${(account.features || [])
+                                    .filter(f => f.enabled)
+                                    .map(f => `<li><i class="fas fa-check-circle"></i> ${f.title}</li>`)
+                                    .join('')}
+                            </ul>
+                            <p class="card-text text-muted">${account.description}</p>
+                            <div class="price-tag">Contact for Price</div>
+                            <div class="mt-auto">
+                                <button class="btn btn-detail" onclick="showDetails('account', ${JSON.stringify(account).replace(/"/g, '&quot;')})">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                                <a href="https://wa.me/087817757668?text=Hi, I'm interested in: ${encodeURIComponent(account.title)}" 
+                                   class="btn btn-buy" target="_blank">
+                                    <i class="fas fa-shopping-cart"></i> Buy Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading accounts:', error);
+                showToast('Error loading accounts', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Enhanced showDetails function
+        function showDetails(type, item) {
+            try {
+                const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+                const modalTitle = document.querySelector('#detailModal .modal-title');
+                const modalBody = document.querySelector('#detailModal .modal-body');
+                const buyButton = document.querySelector('#detailModal .btn-buy');
+                
+                modalTitle.textContent = item.title;
+                modalBody.innerHTML = `
+                    ${item.image ? 
+                        `<img src="${item.image}" class="img-fluid rounded mb-4" alt="${item.title}" onerror="this.onerror=null; this.src='placeholder.jpg';">` :
+                        ''
+                    }
+                    <span class="category-badge">Game Account</span>
+                    <h4 class="mb-3">${item.title}</h4>
+                    <p class="text-muted mb-4">${item.description}</p>
+                    <div class="features-list mb-4">
+                        <h5 class="mb-3">Features:</h5>
+                        ${(item.features || [])
+                            .filter(f => f.enabled)
+                            .map(f => `<li><i class="fas fa-check-circle"></i> ${f.title}</li>`)
+                            .join('')}
+                    </div>
+                    <div class="price-tag mb-3">Contact for Price</div>
+                    <p class="text-muted">Added: ${new Date(item.date).toLocaleDateString()}</p>
+                `;
+                buyButton.href = `https://wa.me/087817757668?text=Hi, I'm interested in: ${encodeURIComponent(item.title)}`;
+                
+                modal.show();
+            } catch (error) {
+                console.error('Error showing details:', error);
+                showToast('Error showing details', 'error');
+            }
+        }
+
+        // Filter accounts
+        function filterAccounts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const typeFilter = document.getElementById('typeFilter').value;
+            const accounts = getItems('accounts');
+
+            let filtered = accounts.filter(account => {
+                const searchMatch = 
+                    account.title?.toLowerCase().includes(searchTerm) ||
+                    account.description?.toLowerCase().includes(searchTerm) ||
+                    (account.features || []).some(f => 
+                        f.enabled && (
+                            f.title?.toLowerCase().includes(searchTerm) ||
+                            f.description?.toLowerCase().includes(searchTerm)
+                        )
+                    );
+
+                const typeMatch = typeFilter === 'all' || account.type === typeFilter;
+
+                return searchMatch && typeMatch;
+            });
+
+            const accountsGrid = document.getElementById('accountsGrid');
+            if (filtered.length === 0) {
+                accountsGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <p>No accounts found matching your criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort accounts by date, newest first
+            filtered.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+            
+            accountsGrid.innerHTML = filtered.map(account => `
+                <div class="account-card">
+                    <div class="card-badge">${account.type || 'Starter'}</div>
+                    <img src="${account.image}" class="preview-image" alt="${account.title}" 
+                         onerror="this.src='placeholder.jpg';">
+                    <div class="card-body">
+                        <span class="category-badge">Game Account</span>
+                        <h5 class="card-title">${account.title}</h5>
+                        <ul class="features-list">
+                            ${(account.features || [])
+                                .filter(f => f.enabled)
+                                .map(f => `<li><i class="fas fa-check-circle"></i> ${f.title}</li>`)
+                                .join('')}
+                        </ul>
+                        <p class="card-text text-muted">${account.description}</p>
+                        <div class="price-tag">Contact for Price</div>
+                        <div class="mt-auto">
+                            <button class="btn btn-detail" onclick="showDetails('account', ${JSON.stringify(account).replace(/"/g, '&quot;')})">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
+                            <a href="https://wa.me/087817757668?text=Hi, I'm interested in: ${encodeURIComponent(account.title)}" 
+                               class="btn btn-buy" target="_blank">
+                                <i class="fas fa-shopping-cart"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeData(); // Initialize data structure
+            loadAccounts(); // Load initial data
+            
+            // Add event listeners for search and filters
+            document.getElementById('searchInput')?.addEventListener('input', filterAccounts);
+            document.getElementById('typeFilter')?.addEventListener('change', filterAccounts);
+            
+            // Reload data periodically
+            setInterval(loadAccounts, 5000);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAYS STOREE - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #0066cc;
+            --dark-bg: #000000;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --darker-card-bg: rgba(10, 10, 10, 0.97);
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-color: #66b3ff;
+            --border-color: rgba(77, 166, 255, 0.2);
+            --hover-color: #1a8cff;
+            --glow-color: rgba(77, 166, 255, 0.5);
+        }
+
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+            50% { text-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color), 0 0 35px var(--glow-color); }
+            100% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+            50% { border-color: var(--primary-color); box-shadow: 0 0 30px var(--glow-color); }
+            100% { border-color: var(--border-color); box-shadow: 0 0 20px var(--glow-color); }
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at top right, rgba(77, 166, 255, 0.1), transparent 50%),
+                radial-gradient(circle at bottom left, rgba(77, 166, 255, 0.1), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, 
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(77, 166, 255, 0.1) 50%,
+                rgba(10, 10, 10, 0.97) 100%
+            );
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color) !important;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: neonPulse 2s infinite;
+        }
+
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-color) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .admin-section {
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .admin-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .form-control {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.7);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--glow-color);
+            color: #ffffff;
+        }
+
+        .btn-admin {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-admin:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .preview-container {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-top: 1rem;
+        }
+
+        .table {
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background: var(--darker-card-bg);
+            border-color: var(--border-color);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .table td {
+            border-color: var(--border-color);
+            vertical-align: middle;
+        }
+
+        .table img {
+            max-width: 100px;
+            border-radius: 5px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--hover-color);
+        }
+
+        .dashboard-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--glow-color);
+            color: var(--text-color);
+        }
+
+        .dashboard-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .dashboard-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .dashboard-description {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 10, 0.97) 0%,
+                rgba(77, 166, 255, 0.1) 100%
+            );
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--glow-color);
+            animation: neonPulse 2s infinite;
+        }
+
+        .welcome-subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">BAYS STOREE ADMIN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="admin_accounts.html">Accounts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin_tools.html">Tools</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin_history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html" target="_blank">View Store</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="welcome-section">
+            <h1 class="welcome-title">Welcome to Admin Dashboard</h1>
+            <p class="welcome-subtitle">Manage your store content from one place</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <a href="admin_accounts.html" class="dashboard-card">
+                    <i class="fas fa-user-circle dashboard-icon"></i>
+                    <h3 class="dashboard-title">Accounts Management</h3>
+                    <p class="dashboard-description">Add, edit, and manage game accounts for sale</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="admin_tools.html" class="dashboard-card">
+                    <i class="fas fa-tools dashboard-icon"></i>
+                    <h3 class="dashboard-title">Tools Management</h3>
+                    <p class="dashboard-description">Manage game tools, mods, and utilities</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="admin_history.html" class="dashboard-card">
+                    <i class="fas fa-history dashboard-icon"></i>
+                    <h3 class="dashboard-title">History Management</h3>
+                    <p class="dashboard-description">Track and showcase successful transactions</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="index.html" target="_blank" class="dashboard-card">
+                    <i class="fas fa-store dashboard-icon"></i>
+                    <h3 class="dashboard-title">View Store</h3>
+                    <p class="dashboard-description">See how your store looks to customers</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Check if admin is logged in
+        if (!localStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // Initialize store data if not exists
+        if (!localStorage.getItem('baysStoreData')) {
+            localStorage.setItem('baysStoreData', JSON.stringify({
+                accounts: [],
+                tools: [],
+                history: []
+            }));
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html> 
